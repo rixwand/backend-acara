@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import router from "./routes/api";
 import connect from "./utils/database";
 
@@ -10,6 +10,9 @@ async function init() {
     web.use(express.json());
     web.use("/api", router);
 
+    web.get("/", (_req: Request, res: Response) => {
+      res.status(200).json({ message: "Server is running", data: null });
+    });
     web.listen(3000, () => {
       console.log("port listening at 3000");
     });
@@ -18,4 +21,4 @@ async function init() {
   }
 }
 
-init()
+init();
