@@ -1,8 +1,11 @@
-import express from 'express'
-import testController from '../cotrollers/test.controller';
+import express from "express";
+import authController from "../cotrollers/auth.controller";
+import authMiddleware from "../middlewares/auth.middleware";
 
 const router = express.Router();
 
-router.get("/test", testController.test)
+router.post("/auth/register", authController.register);
+router.post("/auth/login", authController.login);
+router.get("/auth/me", authMiddleware, authController.me)
 
 export default router;
