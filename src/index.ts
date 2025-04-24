@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import router from "./routes/api";
 import connect from "./utils/database";
+import docs from "./docs/routes";
 
 async function init() {
   try {
@@ -9,6 +10,7 @@ async function init() {
     const web = express();
     web.use(express.json());
     web.use("/api", router);
+    docs(web)
 
     web.get("/", (_req: Request, res: Response) => {
       res.status(200).json({ message: "Server is running", data: null });
