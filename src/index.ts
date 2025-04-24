@@ -2,12 +2,14 @@ import express, { Request, Response } from "express";
 import router from "./routes/api";
 import connect from "./utils/database";
 import docs from "./docs/routes";
+import cors from 'cors'
 
 async function init() {
   try {
     const res = await connect();
     console.log(res);
     const web = express();
+    web.use(cors())
     web.use(express.json());
     web.use("/api", router);
     docs(web)
