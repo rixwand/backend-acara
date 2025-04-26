@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import * as yup from "yup";
+import { IReqUser } from "../middlewares/auth.middleware";
 import userModel from "../models/user.model";
 import { encrypt } from "../utils/encryption";
 import { generateToken } from "../utils/jwt";
-import { IReqUser } from "../middlewares/auth.middleware";
 
 type TRegister = {
   fullName: string;
@@ -32,6 +32,12 @@ const registerSchema = yup.object({
 export default {
   //REGISTER CONTROLLER
   async register(req: Request, res: Response) {
+    /**
+   #swagger.requestBody = {
+    required: true,
+    schema: {$ref: "#/components/schemas/RegisterRequest"}
+    }
+    */
     const { fullName, username, email, password, confirmPassword } =
       req.body as unknown as TRegister;
     try {
@@ -63,6 +69,12 @@ export default {
 
   // LOGIN CONTROLLER
   async login(req: Request, res: Response) {
+    /**
+     #swagger.requestBody = {
+      required: true,
+      schema: {$ref: "#/components/schemas/LoginRequest"}
+     }
+     */
     const { identifier, password } = req.body as unknown as TLogin;
     try {
       const userByIdentifier = await userModel.findOne({
@@ -112,6 +124,11 @@ export default {
 
   //ME CONTROLLER
   async me(req: IReqUser, res: Response) {
+    /**
+     #swagger.security = [{
+      "bearerAuth": []
+     }]
+     */
     try {
       const user = req.user;
       const result = await userModel.findById(user?.id);

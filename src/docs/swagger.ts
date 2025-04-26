@@ -30,10 +30,17 @@ const doc = {
         identifier: "test",
         password: "secret123",
       },
+      RegisterRequest: {
+        fullName: "User Test",
+        username: "test",
+        email: "test@mail.com",
+        password: "secret123",
+        confirmPassword: "secret123"
+      }
     },
   },
 };
 
-const outputFile = "swagger_output.json";
+const outputFile = "./swagger_output.json";
 const endpointFIles = ["../routes/api.ts"];
 swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointFIles, doc);
