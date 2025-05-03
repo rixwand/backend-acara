@@ -35,8 +35,11 @@ const doc = {
         username: "test",
         email: "test@mail.com",
         password: "secret123",
-        confirmPassword: "secret123"
-      }
+        confirmPassword: "secret123",
+      },
+      ActivationRequest: {
+        code: "abcdef",
+      },
     },
   },
 };

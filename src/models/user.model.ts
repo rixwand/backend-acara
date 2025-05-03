@@ -1,6 +1,8 @@
 import { model, Schema } from "mongoose";
 import User from "../interface/User";
 import { encrypt } from "../utils/encryption";
+import { renderMailHtml, sendMail } from "../utils/mail/mail";
+import { CLIENT_URL } from "../utils/env";
 
 const UserSchema = new Schema<User>(
   {
@@ -11,10 +13,12 @@ const UserSchema = new Schema<User>(
     username: {
       type: Schema.Types.String,
       required: true,
+      unique: true,
     },
     email: {
       type: Schema.Types.String,
       required: true,
+      unique: true,
     },
     password: {
       type: Schema.Types.String,
@@ -37,13 +41,38 @@ const UserSchema = new Schema<User>(
       type: Schema.Types.String,
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 UserSchema.pre("save", function (next) {
   const user = this;
   user.password = encrypt(user.password);
+  user.activationCode = encrypt(user.id);
   next();
+});
+
+UserSchema.post("save", async (doc, next) => {
+  const user = doc;
+  console.log("Send email to: ", user.email);
+
+  try {
+    const contentMail = await renderMailHtml("registration-success.ejs", {
+      username: user.username,
+      activationLink: `${CLIENT_URL}/auth/activation?code=${user.activationCode}`,
+    });
+
+    await sendMail({
+      from: "acara-test@zohomail.com",
+      to: user.email,
+      subject: "ACARA User Activation",
+      html: contentMail,
+    });
+  } catch (err) {
+    const error = err as Error;
+    console.log(error.message);
+  } finally {
+    next();
+  }
 });
 
 UserSchema.methods.toJSON = function () {

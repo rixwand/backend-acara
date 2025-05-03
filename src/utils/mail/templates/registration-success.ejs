@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steps Connected</title>
+    <style>
+      body {
+        margin: 0;
+        background-color: #f4f4f7;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        color: #333333;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        text-align: center;
+        padding: 40px 30px;
+      }
+
+      .logo {
+        margin-bottom: 30px;
+      }
+
+      .logo img {
+        width: 50px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+        margin: 0 0 20px 0;
+        color: #333333;
+      }
+
+      .steps {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .circle {
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border: 3px solid #eaeaea;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #eaeaea;
+        position: relative;
+      }
+
+      .circle p {
+        padding-bottom: 2px;
+      }
+
+      .circle.active {
+        border-color: #4a90e2;
+        color: #4a90e2;
+      }
+
+      .line-active {
+        height: 3px;
+        width: 40px;
+        background: #4a90e2;
+      }
+      .line {
+        height: 3px;
+        width: 40px;
+        background: #eaeaea;
+      }
+
+      @media (max-width: 320px) {
+        .steps {
+          flex-direction: column;
+        }
+
+        .line {
+          width: 3px;
+          height: 40px;
+        }
+      }
+
+      .content {
+        margin-top: 20px;
+        font-size: 16px;
+        color: #555555;
+        line-height: 1.5;
+      }
+
+      .button {
+        display: inline-block;
+        margin: 30px 0 10px 0;
+        padding: 14px 28px;
+        background-color: #4a90e2;
+        color: #ffffff !important;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+
+      .button:hover {
+        background-color: #357ab8;
+      }
+
+      .footer {
+        margin-top: 30px;
+        font-size: 12px;
+        color: #aaaaaa;
+      }
+
+      .footer p {
+        margin: 5px 0;
+      }
+
+      .social-icons img {
+        width: 20px;
+        margin: 0 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>ACARA - User Activation</h1>
+      </div>
+      <div class="steps">
+        <div class="circle active"><p style="font-size: 20px">✓</p></div>
+        <div class="line-active"></div>
+        <div class="circle active"><p style="font-size: 20px">✉</p></div>
+        <div class="line"></div>
+        <div class="circle"><p style="font-size: 26px">☺</p></div>
+      </div>
+      <div class="content">
+        <p>Halo <strong><%= username %></strong>,</p>
+        <p>
+          Terima kasih telah mendaftar di layanan kami.<br />Untuk mengaktifkan
+          akun Anda, silakan klik tombol berikut:
+        </p>
+
+        <a href="<%= activationLink %>" class="button">AKTIVASI AKUN</a>
+      </div>
+
+      <div class="footer">
+        <p>&copy; 2025 ACARA EMS. All rights reserved.</p>
+        <p>123 Main Street, SomeCity, Country</p>
+      </div>
+    </div>
+  </body>
+</html>
